@@ -3,8 +3,8 @@ package it.r27.pizzeria.model;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
-import jakarta.persistence.Table;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "pizza")
@@ -54,8 +54,8 @@ public class Pizza {
         return description;
     }
 
-    public double getPrice() {
-        return price;
+    public String getPrice() {
+        return String.format("%.2f €", price);
     }
 
     public String getImage() {

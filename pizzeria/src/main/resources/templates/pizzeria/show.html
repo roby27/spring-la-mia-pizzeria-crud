@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="~{fragments :: head}"></div>
+    <title th:text="${pizza.name}"></title>
+</head>
+<body>
+    <div class="container p-2">
+        <div th:replace="~{navbar :: navbar}"></div>
+        <div class="row p-3">
+            <div class="col-12">
+                <h1 class="text-center" th:text="${pizza.name}"></h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <figure>
+                    <img th:src="${pizza.image}" alt="${pizza.name}" class="figure-img img-fluid rounded">
+                    <figcaption class="figure-caption text-end" th:text="${pizza.name}"></figcaption>
+                </figure>
+            </div>
+            <div class="col-6">
+                <dl>
+                    <dt>Descrizione</dt>
+                    <dd th:text="${pizza.description}"></dd>
+                    <dt>Prezzo</dt> 
+                    <dd th:text="${pizza.price}"></dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+
+    <div th:replace="~{fragments :: scripts}"></div>
+</body>
+</html>
