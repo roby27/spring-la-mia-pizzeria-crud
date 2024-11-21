@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="~{fragments :: head}"></div>
+    <title>Aggiungi nuova pizza</title>
+</head>
+<body>
+    <div class="container p-2">
+        <div th:replace="~{navbar :: navbar}"></div>
+        <div class="row p-3">
+            <div class="col-12">
+                <h1 class="text-center">Aggiungi una nuova pizza</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-8">
+                <form class="row g-3" id="pizza-form" th:object="${pizza}" th:action="@{/pizzeria/create}" method="post">
+                    <div class="col-md-6">
+                      <label for="name" class="form-label">Nome pizza</label>
+                      <input th:field="*{name}" type="text" class="form-control" id="name" placeholder="Margherita"  th:errorClass="is-invalid">
+                        <div th:if="${#fields.hasErrors('name')}" class="invalid-feedback">
+                            <ul>
+                                <li th:each="err : ${#fields.errors('name')}" th:text="${err}"></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                      <label for="description" class="form-label">Descrzione</label>
+                      <input th:field="*{description}" type="text" class="form-control" id="description" placeholder="Pomodoro, mozzarella, basilico"  th:errorClass="is-invalid">
+                      <div th:if="${#fields.hasErrors('description')}" class="invalid-feedback">
+                        <ul>
+                            <li th:each="err : ${#fields.errors('description')}" th:text="${err}"></li>
+                        </ul>
+                    </div>
+                    </div>
+                    <div class="col-6">
+                      <label for="price" class="form-label">Prezzo</label>
+                      <input th:field="*{price}" step="0.01" type="number" class="form-control" id="price" placeholder="00,00€"  th:errorClass="is-invalid">
+                      <div th:if="${#fields.hasErrors('price')}" class="invalid-feedback">
+                        <ul>
+                            <li th:each="err : ${#fields.errors('price')}" th:text="${err}"></li>
+                        </ul>
+                    </div>
+                    </div>
+                    <div class="col-6">
+                      <label for="image" class="form-label">Link immagine</label>
+                      <input th:field="*{image}" type="url" class="form-control" id="image" placeholder="https://..."  th:errorClass="is-invalid">
+                      <div th:if="${#fields.hasErrors('image')}" class="invalid-feedback">
+                        <ul>
+                            <li th:each="err : ${#fields.errors('image')}" th:text="${err}"></li>
+                        </ul>
+                    </div>
+                    </div>
+                    <div class="col-12">
+                      <button type="submit" class="btn btn-primary">Crea</button>
+                    </div>
+                </form>
+            </div>
+            <div class="col-4">
+                <div class="card">
+                    <div class="card-header">
+                      Ricorda
+                    </div>
+                    <div class="card-body">
+                      <h5 class="card-title">Assicurati di inserire i dati correttamente</h5>
+                      <p class="card-text">Prevenire è meglio che curare.</p>
+                    </div>
+                  </div>
+            </div>
+        </div>
+    </div>
+
+    <div th:replace="~{fragments :: scripts}"></div>
+</body>
+</html>
