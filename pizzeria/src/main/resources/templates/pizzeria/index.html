@@ -5,10 +5,10 @@
     <title>Pizzeria</title>
 </head>
 <body>
-    <div class="container p-2">
+    <div class="container">
         <div th:replace="~{navbar :: navbar}"></div>
-        <div th:replace="~{fragments :: alerts}"></div>
-        <div class="row p-5" th:if="${!pizza.isEmpty()}">
+        <div th:replace="~{fragments :: toast}"></div>
+        <div class="row mt-5" th:if="${!pizza.isEmpty()}">
             <div class="col">
                 <table class="table table-striped">
                     <thead>
