@@ -9,7 +9,24 @@
 	<link th:rel="stylesheet" th:href="@{/webjars/font-awesome/6.5.2/css/all.css}" />
 </th:block>
 </head>
-
+<div th:fragment="alerts">
+	<div class="row p-2" th:if="${successMessage != null}">
+		<div class="col mx-auto">
+			<div class="alert alert-success alert-dismissible fade show" role="alert">
+				<strong th:text="${successMessage}"></strong>
+				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+			</div>
+		</div>
+	</div>
+	<div class="row p-2" th:if="${deleteMessage != null}">
+		<div class="col mx-auto">
+			<div class="alert alert-danger alert-dismissible fade show" role="alert">
+				<strong th:text="${deleteMessage}"></strong>
+				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+			</div>
+		</div>
+	</div>
+</div>
 <body>
 	<div th:fragment="scripts">
 		<script th:src="@{/webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js}"></script>

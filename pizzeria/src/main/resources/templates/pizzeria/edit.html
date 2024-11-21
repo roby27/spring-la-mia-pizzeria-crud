@@ -2,19 +2,19 @@
 <html lang="it" xmlns:th="http://www.thymeleaf.org">
 <head>
     <div th:replace="~{fragments :: head}"></div>
-    <title>Aggiungi nuova pizza</title>
+    <title>Modifica pizza</title>
 </head>
 <body>
     <div class="container p-2">
         <div th:replace="~{navbar :: navbar}"></div>
         <div class="row p-3">
             <div class="col-12">
-                <h1 class="text-center">Aggiungi una nuova pizza</h1>
+                <h1 class="text-center">Modifica pizza</h1>
             </div>
         </div>
         <div class="row">
             <div class="col-8">
-                <form class="row g-3" id="pizza-form" th:object="${pizza}" th:action="@{/pizzeria/create}" method="post">
+                <form class="row g-3" id="pizza-form" th:object="${pizza}" th:action="@{/pizzeria/edit/{id}(id=${pizza.id})}" method="post">
                     <div class="col-md-6">
                       <label for="name" class="form-label">Nome pizza</label>
                       <input th:field="*{name}" type="text" class="form-control" id="name" placeholder="Margherita"  th:errorClass="is-invalid">
@@ -52,19 +52,21 @@
                     </div>
                     </div>
                     <div class="col-12">
-                      <button type="submit" class="btn btn-primary"><i class="fa-solid fa-plus"></i> AGGIUNGI</button>
+                      <button type="submit" class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i> AGGIORNA</button>
+                      <form action="#" th:action="@{'/pizzeria/delete/{id}'(id=${pizza.id})}" method="post">
+                        <button class="btn btn-danger" type="submit" id="submitButton" onclick="return confirm('Sei sicuro di voler proseguire?')"><i class="fa-solid fa-trash"></i> ELIMINA</button>
+                    </form>
                     </div>
                 </form>
             </div>
             <div class="col-4">
                 <div class="card">
-                    <div class="card-header">
-                      Ricorda
-                    </div>
+                    <img class="card-img-top" th:src="${pizza.image}">
                     <div class="card-body">
-                      <h5 class="card-title">Assicurati di inserire i dati correttamente</h5>
-                      <p class="card-text">Prevenire è meglio che curare.</p>
+                      <h5 class="card-title" th:text="${pizza.name}"></h5>
+                      <p class="card-text" th:text="${pizza.description}"></p>
                     </div>
+                    <div class="card-footer text-muted" th:text="${pizza.formattedPrice}"></div>
                   </div>
             </div>
         </div>

@@ -12,12 +12,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import it.r27.pizzeria.model.Pizza;
 import it.r27.pizzeria.repository.PizzaRepository;
 import jakarta.validation.Valid;
 
 import org.springframework.web.bind.annotation.PostMapping;
+
 
 
 @Controller
@@ -71,14 +73,44 @@ public class PizzaController {
 	}
 	
 	@PostMapping("/create")
-	public String store(@Valid @ModelAttribute("pizza") Pizza formPizza, BindingResult bindingResult, Model model) {
+	public String store(@Valid @ModelAttribute("pizza") Pizza formPizza, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
 		
 		if(bindingResult.hasErrors()) {
 			return "/pizzeria/create";
 		}
 
 		pizzaRepo.save(formPizza);
+
+		redirectAttributes.addFlashAttribute("successMessage", "Pizza aggiunta correttamente.");
 		
+		return "redirect:/pizzeria";
+	}
+
+	@GetMapping("/edit/{id}")
+	public String edit(@PathVariable("id") Long id, Model model) {
+		model.addAttribute("pizza", pizzaRepo.findById(id).get());
+		return "/pizzeria/edit";
+	}
+	
+	@PostMapping("/edit/{id}")
+	public String update(@Valid @ModelAttribute("pizza") Pizza formPizza, BindingResult bindingResult, Model model) {
+		
+		if(bindingResult.hasErrors()) {
+			return "/pizzeria/edit";
+		}
+
+		pizzaRepo.save(formPizza);
+		
+		return "redirect:/pizzeria";
+	}
+
+	@PostMapping("/delete/{id}")
+	public String delete(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
+
+		pizzaRepo.deleteById(id);
+
+		redirectAttributes.addFlashAttribute("deleteMessage", "Pizza eliminata correttamente.");
+
 		return "redirect:/pizzeria";
 	}
 	
