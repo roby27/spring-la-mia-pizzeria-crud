@@ -5,10 +5,23 @@
     <title>Pizzeria</title>
 </head>
 <body>
+    <div th:replace="~{navbar :: navbar}"></div>
+    <div th:replace="~{fragments :: toast}"></div>
     <div class="container">
-        <div th:replace="~{navbar :: navbar}"></div>
-        <div th:replace="~{fragments :: toast}"></div>
-        <div class="row mt-5" th:if="${!pizza.isEmpty()}">
+    <div class="row py-4">
+        <div class="col-9">
+            <a class="btn btn-primary" th:href="@{/pizzeria/create}"><i class="fa-solid fa-plus"></i> AGGIUNGI</a>
+        </div>
+        <div class="col">
+            <form class="d-flex" role="search">
+                <div class="input-group">
+                    <input class="form-control" type="search" placeholder="Cerca..." aria-label="Cerca" th:value="${keyword}" name="keyword">
+                    <button class="btn btn-primary" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="row" th:if="${!pizza.isEmpty()}">
             <div class="col">
                 <table class="table table-striped">
                     <thead>
